@@ -1,7 +1,7 @@
 import {cn} from '../utils';
 
 interface Props extends React.ComponentProps<'button'> {
-  onClick: () => void;
+  onClick?: () => void;
   children: React.ReactNode;
   className?: string;
 }
