@@ -3,20 +3,28 @@ import {nanoid} from 'nanoid';
 
 import type {FilterTodos, Todo, TodoStatus} from '../shared/api';
 import {TodoFilters, TodoList, TodoPanel} from '../shared/components';
-import {cn} from '../shared/utils';
+import {
+  cn,
+  getTodosFromLocalStorage,
+  saveTodosToLocalStorage,
+} from '../shared/utils';
 
 interface Props {
   className?: string;
 }
 
-const DEFAULT_TODOS: Todo[] = [];
-
 const DEFAULT_FILTER = 'all';
 
 export const App = ({className}: Props) => {
-  const [todos, setTodos] = React.useState<Todo[]>(DEFAULT_TODOS);
+  const [todos, setTodos] = React.useState<Todo[]>(() =>
+    getTodosFromLocalStorage()
+  );
 
   const [filter, setFilter] = React.useState<FilterTodos>(DEFAULT_FILTER);
+
+  React.useEffect(() => {
+    saveTodosToLocalStorage(todos);
+  }, [todos]);
 
   const handleAddTodo = (
     title: Todo['title'],
@@ -64,11 +72,15 @@ export const App = ({className}: Props) => {
             handleFilterChange={handleFilterChange}
           />
         )}
-        <TodoList
-          todos={filteredTodos}
-          handleDeleteTodo={handleDeleteTodo}
-          handleToggleTodo={handleToggleTodo}
-        />
+        {todos.length > 0 ? (
+          <TodoList
+            todos={filteredTodos}
+            handleDeleteTodo={handleDeleteTodo}
+            handleToggleTodo={handleToggleTodo}
+          />
+        ) : (
+          <div>no todos ...</div>
+        )}
       </div>
     </div>
   );

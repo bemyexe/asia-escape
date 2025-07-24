@@ -14,7 +14,9 @@ export const Select = ({options, className, ...props}: Props) => {
   return (
     <select className={cn('border rounded p-1', className)} {...props}>
       {options.map((option) => (
-        <option value={option.value}>{option.label}</option>
+        <option key={option.label} value={option.value}>
+          {option.label}
+        </option>
       ))}
     </select>
   );
