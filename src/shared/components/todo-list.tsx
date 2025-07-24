@@ -1,4 +1,5 @@
 import type {Todo, TodoStatus} from '../api';
+import {cn} from '../utils';
 
 import {TodoItem} from './todo-item';
 
@@ -16,7 +17,7 @@ export const TodoList = ({
   className,
 }: Props) => {
   return (
-    <ul className={className}>
+    <ul className={cn('flex flex-col gap-2', className)}>
       {todos.map((todo: Todo) => (
         <li key={todo.id}>
           <TodoItem

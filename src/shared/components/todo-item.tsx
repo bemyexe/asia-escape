@@ -31,9 +31,19 @@ export const TodoItem = ({
   className,
 }: Props) => {
   return (
-    <div className={cn('flex flex-col border rounded', className)}>
-      <div>Title: {todo.title}</div>
-      <div>Description: {todo.description}</div>
+    <div
+      className={cn(
+        'flex flex-col gap-1 border rounded p-2 bg-white',
+        className
+      )}>
+      <div className="flex gap-1">
+        <span className="font-bold">Title:</span>
+        {todo.title}
+      </div>
+      <div className="flex gap-1">
+        <span className="font-bold">Description:</span>
+        {todo.description}
+      </div>
       <Select
         value={todo.status}
         onChange={(event) =>

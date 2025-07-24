@@ -33,13 +33,19 @@ export const App = ({className}: Props) => {
   };
 
   return (
-    <div className={cn('space-y-4', className)}>
-      <TodoPanel handleAddTodo={handleAddTodo} />
-      <TodoList
-        todos={todos}
-        handleDeleteTodo={handleDeleteTodo}
-        handleToggleTodo={handleToggleTodo}
-      />
+    <div
+      className={cn(
+        'flex items-center justify-center min-h-screen p-2',
+        className
+      )}>
+      <div className="flex flex-col items-center justify-center gap-2 border rounded p-2 bg-blue-100">
+        <TodoPanel handleAddTodo={handleAddTodo} />
+        <TodoList
+          todos={todos}
+          handleDeleteTodo={handleDeleteTodo}
+          handleToggleTodo={handleToggleTodo}
+        />
+      </div>
     </div>
   );
 };

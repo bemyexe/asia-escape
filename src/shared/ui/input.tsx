@@ -13,7 +13,11 @@ export const Input = ({label, className, ...props}: Props) => {
   return (
     <div className={cn('flex', className)}>
       {label && <label htmlFor={inputId}>{label}</label>}
-      <input id={inputId} className="border rounded p-0.5" {...props} />
+      <input
+        id={inputId}
+        className="border rounded p-0.5 bg-white"
+        {...props}
+      />
     </div>
   );
 };

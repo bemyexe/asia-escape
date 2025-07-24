@@ -38,20 +38,24 @@ export const TodoPanel = ({handleAddTodo, className}: Props) => {
   };
 
   return (
-    <form className={cn('flex flex-col', className)} onSubmit={handleSubmit}>
+    <form
+      className={cn('flex flex-col gap-2', className)}
+      onSubmit={handleSubmit}>
       <Input
-        className="items-center gap-1"
+        className="flex-col"
         label="Title"
         value={title}
         onChange={handleChangeTitle}
         placeholder="Write a new title"
+        required
       />
       <Input
-        className="items-center gap-1"
+        className="flex-col"
         label="Description"
         value={description}
         onChange={handleChangeDescription}
         placeholder="Write a new description"
+        required
       />
       <Button type="submit" children="Create todo" />
     </form>
