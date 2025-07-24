@@ -1,9 +1,9 @@
 import React from 'react';
 import {nanoid} from 'nanoid';
 
-import type {Todo} from '../shared/api';
-import {TodoPanel} from '../shared/components';
-import {TodoList} from '../shared/components/todo-list';
+import type {Todo, TodoStatus} from '../shared/api';
+import {TodoList, TodoPanel} from '../shared/components';
+import {cn} from '../shared/utils';
 
 interface Props {
   className?: string;
@@ -26,10 +26,20 @@ export const App = ({className}: Props) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
+  const handleToggleTodo = (id: Todo['id'], status: TodoStatus) => {
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === id ? {...todo, status} : todo))
+    );
+  };
+
   return (
-    <div className={className}>
+    <div className={cn('space-y-4', className)}>
       <TodoPanel handleAddTodo={handleAddTodo} />
-      <TodoList todos={todos} handleDeleteTodo={handleDeleteTodo} />
+      <TodoList
+        todos={todos}
+        handleDeleteTodo={handleDeleteTodo}
+        handleToggleTodo={handleToggleTodo}
+      />
     </div>
   );
 };

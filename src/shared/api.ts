@@ -5,4 +5,4 @@ export interface Todo {
   status: TodoStatus;
 }
 
-type TodoStatus = 'pending' | 'inProgress' | 'done';
+export type TodoStatus = 'pending' | 'inProgress' | 'done';
