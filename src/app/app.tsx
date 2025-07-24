@@ -1,8 +1,8 @@
 import React from 'react';
 import {nanoid} from 'nanoid';
 
-import type {Todo, TodoStatus} from '../shared/api';
-import {TodoList, TodoPanel} from '../shared/components';
+import type {FilterTodos, Todo, TodoStatus} from '../shared/api';
+import {TodoFilters, TodoList, TodoPanel} from '../shared/components';
 import {cn} from '../shared/utils';
 
 interface Props {
@@ -11,8 +11,12 @@ interface Props {
 
 const DEFAULT_TODOS: Todo[] = [];
 
+const DEFAULT_FILTER = 'all';
+
 export const App = ({className}: Props) => {
   const [todos, setTodos] = React.useState<Todo[]>(DEFAULT_TODOS);
+
+  const [filter, setFilter] = React.useState<FilterTodos>(DEFAULT_FILTER);
 
   const handleAddTodo = (
     title: Todo['title'],
@@ -32,16 +36,36 @@ export const App = ({className}: Props) => {
     );
   };
 
+  const handleFilterChange = (newFilter: FilterTodos) => {
+    setFilter(newFilter);
+  };
+
+  const filteredTodos = todos.filter((todo: Todo) => {
+    const map = {
+      all: true,
+      pending: todo.status === 'pending',
+      inProgress: todo.status === 'inProgress',
+      done: todo.status === 'done',
+    };
+    return map[filter];
+  });
+
   return (
     <div
       className={cn(
         'flex items-center justify-center min-h-screen p-2',
         className
       )}>
-      <div className="flex flex-col items-center justify-center gap-2 border rounded p-2 bg-blue-100">
+      <div className="flex flex-col items-center justify-center gap-2 border rounded p-2 bg-blue-100 max-w-[768px]">
         <TodoPanel handleAddTodo={handleAddTodo} />
+        {todos.length > 0 && (
+          <TodoFilters
+            filter={filter}
+            handleFilterChange={handleFilterChange}
+          />
+        )}
         <TodoList
-          todos={todos}
+          todos={filteredTodos}
           handleDeleteTodo={handleDeleteTodo}
           handleToggleTodo={handleToggleTodo}
         />

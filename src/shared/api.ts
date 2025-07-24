@@ -6,3 +6,5 @@ export interface Todo {
 }
 
 export type TodoStatus = 'pending' | 'inProgress' | 'done';
+
+export type FilterTodos = 'all' | TodoStatus;
