@@ -8,33 +8,25 @@ interface Props extends React.ComponentProps<'form'> {
   className?: string;
 }
 
-const DEFAULT_TITLE_STATE = '';
-const DEFAULT_DESCRIPTION_STATE = '';
+const DEFAULT_FORM_STATE = {
+  title: '',
+  description: '',
+};
 
 export const TodoPanel = ({handleAddTodo, className}: Props) => {
-  const [title, setTitle] = React.useState(DEFAULT_TITLE_STATE);
-  const [description, setDescription] = React.useState(
-    DEFAULT_DESCRIPTION_STATE
-  );
+  const [form, setForm] = React.useState(DEFAULT_FORM_STATE);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (title && description) {
-      handleAddTodo(title, description);
-      setTitle(DEFAULT_TITLE_STATE);
-      setDescription(DEFAULT_DESCRIPTION_STATE);
+    if (form.title && form.description) {
+      handleAddTodo(form.title, form.description);
+      setForm(DEFAULT_FORM_STATE);
     }
   };
 
-  const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-
-  const handleChangeDescription = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setDescription(event.target.value);
+  const handleChangeForm = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({...prev, [event.target.name]: event.target.value}));
   };
 
   return (
@@ -44,16 +36,18 @@ export const TodoPanel = ({handleAddTodo, className}: Props) => {
       <Input
         className="flex-col"
         label="Title"
-        value={title}
-        onChange={handleChangeTitle}
+        name="title"
+        value={form.title}
+        onChange={handleChangeForm}
         placeholder="Write a new title"
         required
       />
       <Input
         className="flex-col"
         label="Description"
-        value={description}
-        onChange={handleChangeDescription}
+        name="description"
+        value={form.description}
+        onChange={handleChangeForm}
         placeholder="Write a new description"
         required
       />
