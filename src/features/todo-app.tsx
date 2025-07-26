@@ -1,4 +1,5 @@
 import React from 'react';
+import {AnimatePresence, motion} from 'motion/react';
 import {nanoid} from 'nanoid';
 
 import type {FilterTodos, Todo, TodoStatus} from '../shared/api';
@@ -68,15 +69,22 @@ export const TodoApp = ({className}: Props) => {
       {todos.length > 0 && (
         <TodoFilters filter={filter} handleFilterChange={handleFilterChange} />
       )}
-      {todos.length > 0 ? (
-        <TodoList
-          todos={filteredTodos}
-          handleDeleteTodo={handleDeleteTodo}
-          handleToggleTodo={handleToggleTodo}
-        />
-      ) : (
-        <div>no todos ...</div>
-      )}
+      <AnimatePresence>
+        {todos.length > 0 ? (
+          <TodoList
+            todos={filteredTodos}
+            handleDeleteTodo={handleDeleteTodo}
+            handleToggleTodo={handleToggleTodo}
+          />
+        ) : (
+          <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}>
+            no todos ...
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

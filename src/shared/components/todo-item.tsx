@@ -1,3 +1,5 @@
+import {motion} from 'motion/react';
+
 import type {Todo, TodoStatus} from '../api';
 import {Button, Select} from '../ui';
 import {cn} from '../utils';
@@ -31,7 +33,11 @@ export const TodoItem = ({
   className,
 }: Props) => {
   return (
-    <div
+    <motion.div
+      initial={{opacity: 0}}
+      animate={{opacity: 1}}
+      exit={{opacity: 0, x: -100}}
+      transition={{duration: 0.3}}
       className={cn(
         'flex flex-col gap-1 border rounded p-2 bg-white',
         className
@@ -56,6 +62,6 @@ export const TodoItem = ({
         className="bg-rose-600 hover:bg-rose-800">
         Delete
       </Button>
-    </div>
+    </motion.div>
   );
 };

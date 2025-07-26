@@ -1,3 +1,5 @@
+import {AnimatePresence, motion} from 'motion/react';
+
 import type {Todo, TodoStatus} from '../api';
 import {cn} from '../utils';
 
@@ -18,15 +20,22 @@ export const TodoList = ({
 }: Props) => {
   return (
     <ul className={cn('flex flex-col gap-2', className)}>
-      {todos.map((todo: Todo) => (
-        <li key={todo.id}>
-          <TodoItem
-            todo={todo}
-            handleDeleteTodo={handleDeleteTodo}
-            handleToggleTodo={handleToggleTodo}
-          />
-        </li>
-      ))}
+      <AnimatePresence>
+        {todos.map((todo: Todo) => (
+          <motion.li
+            key={todo.id}
+            initial={{opacity: 0, height: 0}}
+            animate={{opacity: 1, height: 'auto'}}
+            exit={{opacity: 0, height: 0}}
+            transition={{duration: 0.3}}>
+            <TodoItem
+              todo={todo}
+              handleDeleteTodo={handleDeleteTodo}
+              handleToggleTodo={handleToggleTodo}
+            />
+          </motion.li>
+        ))}
+      </AnimatePresence>
     </ul>
   );
 };
