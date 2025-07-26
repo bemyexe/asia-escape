@@ -1,4 +1,4 @@
-import {TodoApp} from '../feature';
+import {TodoApp} from '../features';
 import {cn} from '../shared/utils';
 
 interface Props {
