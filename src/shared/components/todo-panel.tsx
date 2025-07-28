@@ -37,6 +37,7 @@ export const TodoPanel = ({handleAddTodo, className}: Props) => {
         className="flex-col"
         label="Title"
         name="title"
+        type="text"
         value={form.title}
         onChange={handleChangeForm}
         placeholder="Write a new title"
@@ -46,6 +47,7 @@ export const TodoPanel = ({handleAddTodo, className}: Props) => {
         className="flex-col"
         label="Description"
         name="description"
+        type="text"
         value={form.description}
         onChange={handleChangeForm}
         placeholder="Write a new description"
