@@ -7,5 +7,6 @@
 ### Stack
 - React + Typescript
 - Tailwind CSS
+- Framer Motion
 - ESLint + Prettier
 - Vite
